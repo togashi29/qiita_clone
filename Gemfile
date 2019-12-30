@@ -49,6 +49,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'pry-doc'
+  gem 'rubocop-performance'
 end
 
 group :development do
