@@ -14,5 +14,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
+  # gem deviseにおいて定義されているemailのformat @@email_regexp = /\A[^@\s]+@[^@\s]+\z/
   validates :password, presence: true
+  # gem deviseにおいて定義されているpassword_length @@password_length = 6..128
 end
