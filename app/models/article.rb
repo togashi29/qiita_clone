@@ -3,6 +3,6 @@ class Article < ApplicationRecord
   has_many :article_comments, dependent: :destroy
   has_many :article_likes, dependent: :destroy
 
-  validates :title,  presence: true
-  validates :body,  presence: true
+  validates :title, presence: true
+  validates :body, presence: true
 end

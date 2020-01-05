@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Article, type: :model do
   describe "正常系のテスト" do
@@ -27,5 +27,4 @@ RSpec.describe Article, type: :model do
       end
     end
   end
-
 end

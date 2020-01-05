@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe ArticleComment, type: :model do
   describe "正常系のテスト" do

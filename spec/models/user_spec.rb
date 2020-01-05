@@ -1,4 +1,4 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe User, type: :model do
   describe "正常系のテスト" do
@@ -60,7 +60,7 @@ RSpec.describe User, type: :model do
 
       context "passwordが5文字以下の時" do
         it "エラーする" do
-          user = build(:user, password: "a"*5)
+          user = build(:user, password: "a" * 5)
           user.valid?
           expect(user.errors.messages[:password]).to include "is too short (minimum is 6 characters)"
         end
@@ -68,12 +68,11 @@ RSpec.describe User, type: :model do
 
       context "passwordが129文字以上の場合" do
         it "エラーする" do
-          user = build(:user, password: "a"*129)
+          user = build(:user, password: "a" * 129)
           user.valid?
           expect(user.errors.messages[:password]).to include "is too long (maximum is 128 characters)"
         end
       end
     end
   end
-
 end
