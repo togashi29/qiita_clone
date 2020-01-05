@@ -36,7 +36,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
           expect(res["body"]).to eq article.body
           expect(res["user"]["id"]).to eq article.user.id
           expect(res["user"]["name"]).to eq article.user.name
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -51,5 +51,4 @@ RSpec.describe "Api::V1::Articles", type: :request do
       end
     end
   end
-
 end
