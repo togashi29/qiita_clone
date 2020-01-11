@@ -100,7 +100,6 @@ jobs:
           command: |
             bundle exec rubocop
 
-
 workflows:
   build:
     jobs:
