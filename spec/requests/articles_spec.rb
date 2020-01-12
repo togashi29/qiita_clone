@@ -87,9 +87,9 @@ RSpec.describe "Api::V1::Articles", type: :request do
 
         it "更新できる" do
           expect { subject }.to change { Article.find(article.id).body }.from(article.body).to(params[:article][:body]) &
-                            not_change { Article.find(article.id).title } &
-                            not_change { Article.find(article.id).created_at }
-          expect(response).to have_http_status(200)
+                                not_change { Article.find(article.id).title } &
+                                not_change { Article.find(article.id).created_at }
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -103,6 +103,5 @@ RSpec.describe "Api::V1::Articles", type: :request do
         end
       end
     end
-
   end
 end
