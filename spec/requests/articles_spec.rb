@@ -52,10 +52,10 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
   end
 
-
   describe "POST /api/v1/articles" do
     subject { post(api_v1_articles_path, params: params) }
-    let(:params) {{ article: attributes_for(:article) }}
+
+    let(:params) { { article: attributes_for(:article) } }
     let(:current_user) { create(:user) }
 
     before do
@@ -67,7 +67,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
       res = JSON.parse(response.body)
       expect(res["title"]).to eq params[:article][:title]
       expect(res["body"]).to eq params[:article][:body]
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
