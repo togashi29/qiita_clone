@@ -119,8 +119,8 @@ RSpec.describe "Api::V1::Articles", type: :request do
         let!(:article) { create(:article, user: current_user) }
 
         it "削除できる" do
-          expect {subject}.to change { current_user.articles.count }.by(-1)
-          expect(response).to have_http_status(204)
+          expect { subject }.to change { current_user.articles.count }.by(-1)
+          expect(response).to have_http_status(:no_content)
         end
       end
     end
@@ -134,9 +134,5 @@ RSpec.describe "Api::V1::Articles", type: :request do
         end
       end
     end
-
   end
-
-
-
 end
