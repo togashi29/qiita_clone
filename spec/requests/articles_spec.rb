@@ -74,7 +74,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
   describe "PATCH /api/v1/articles/:id" do
     subject { patch(api_v1_article_path(article.id), params: params) }
 
-    let(:params) { { article: { body: Faker::Lorem.paragraph, created_at: Time.current } } }
+    let(:params) { { article: { body: Faker::Quote.matz, created_at: Time.current } } }
     let(:current_user) { create(:user) }
 
     before do
