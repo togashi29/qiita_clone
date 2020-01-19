@@ -15,5 +15,4 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
   # gem deviseにおいて定義されているemailのformat @@email_regexp = /\A[^@\s]+@[^@\s]+\z/
-
 end
