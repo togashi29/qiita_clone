@@ -1,8 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   describe "POST /api/v1/auth/sign_in" do
     subject { post(api_v1_user_session_path, params: params) }
+
     let(:user) { create(:user) }
 
     describe "正常系のテスト" do
@@ -16,7 +17,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
           expect(header["client"]).to be_present
           expect(header["expiry"]).to be_present
           expect(header["uid"]).to be_present
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
     end
@@ -42,11 +43,11 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
         end
       end
     end
-
   end
 
   describe "DELETE /api/v1/auth/sign_out" do
     subject { delete(destroy_api_v1_user_session_path, headers: headers) }
+
     let(:headers) { current_user.create_new_auth_token }
     let(:current_user) { create(:user) }
 
@@ -57,8 +58,7 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
       expect(header["client"]).to be nil
       expect(header["expiry"]).to be nil
       expect(header["uid"]).to be nil
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
-
 end

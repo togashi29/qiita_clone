@@ -1,8 +1,9 @@
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Api::V1::Auth::Registrations", type: :request do
   describe "POST /api/v1/auth" do
     subject { post(api_v1_user_registration_path, params: params) }
+
     let(:params) { attributes_for(:user) }
 
     it "ユーザーが作成されトークン情報が取得できる" do
@@ -12,7 +13,7 @@ RSpec.describe "Api::V1::Auth::Registrations", type: :request do
       expect(header["client"]).to be_present
       expect(header["expiry"]).to be_present
       expect(header["uid"]).to be_present
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 end
