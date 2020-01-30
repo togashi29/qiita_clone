@@ -48,17 +48,19 @@ RSpec.describe "Api::V1::Auth::Sessions", type: :request do
   describe "DELETE /api/v1/auth/sign_out" do
     subject { delete(destroy_api_v1_user_session_path, headers: headers) }
 
-    let(:headers) { current_user.create_new_auth_token }
-    let(:current_user) { create(:user) }
+    context "ユーザーがログインしているとき" do
+      let(:headers) { current_user.create_new_auth_token }
+      let(:current_user) { create(:user) }
 
-    it "ログアウトしトークン情報が削除される" do
-      subject
-      header = response.header
-      expect(header["access-token"]).to be nil
-      expect(header["client"]).to be nil
-      expect(header["expiry"]).to be nil
-      expect(header["uid"]).to be nil
-      expect(response).to have_http_status(:ok)
+      it "ログアウトしトークン情報が削除される" do
+        subject
+        header = response.header
+        expect(header["access-token"]).to be nil
+        expect(header["client"]).to be nil
+        expect(header["expiry"]).to be nil
+        expect(header["uid"]).to be nil
+        expect(response).to have_http_status(:ok)
+      end
     end
   end
 end
