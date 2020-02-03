@@ -1,5 +1,5 @@
 class ArticleSerializer < ActiveModel::Serializer
-  attributes :id, :title, :body
+  attributes :id, :title, :body, :updated_at
   belongs_to :user
   # user model の一部の属性のみ返したいため
   class UserSerializer < ActiveModel::Serializer
