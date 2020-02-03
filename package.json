@@ -6,6 +6,7 @@
     "axios": "^0.19.1",
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.4",
+    "vee-validate": "^3.2.3",
     "vue": "^2.6.11",
     "vue-loader": "^15.8.3",
     "vue-property-decorator": "^8.3.0",
