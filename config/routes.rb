@@ -14,6 +14,10 @@ Rails.application.routes.draw do
         sessions: "api/v1/auth/sessions",
       }
       resources :articles
+
+      namespace :articles do
+        resources :draft
+      end
     end
   end
 end
