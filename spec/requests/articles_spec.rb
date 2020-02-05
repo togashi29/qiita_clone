@@ -5,15 +5,16 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_articles_path) }
 
     before do
-      create_list(:article, 3)
+      create_list(:article, 3, status: "published")
+      create_list(:article, 5)
     end
 
-    it "記事の一覧が取得できる" do
+    it "公開記事の一覧が取得できる" do
       subject
       res = JSON.parse(response.body)
 
       expect(res.length).to eq 3
-      expect(res[0].keys).to eq ["id", "title", "body", "updated_at", "user"]
+      expect(res[0].keys).to eq ["id", "title", "body", "updated_at", "status", "user"]
       expect(res[0]["user"].keys).to eq ["id", "name"]
       expect(response).to have_http_status(:ok)
     end
@@ -23,11 +24,11 @@ RSpec.describe "Api::V1::Articles", type: :request do
     subject { get(api_v1_article_path(article_id)) }
 
     describe "正常系のテスト" do
-      context "指定したidの記事が存在する場合" do
-        let(:article) { create(:article) }
+      context "指定したidの公開記事が存在する場合" do
+        let(:article) { create(:article, status: "published") }
         let(:article_id) { article.id }
 
-        it "指定したidの記事が取得できる" do
+        it "指定したidの公開記事が取得できる" do
           subject
           res = JSON.parse(response.body)
 
@@ -35,6 +36,7 @@ RSpec.describe "Api::V1::Articles", type: :request do
           expect(res["title"]).to eq article.title
           expect(res["body"]).to eq article.body
           expect(res["updated_at"]).to be_present
+          expect(res["status"]).to eq article.status
           expect(res["user"]["id"]).to eq article.user.id
           expect(res["user"]["name"]).to eq article.user.name
           expect(response).to have_http_status(:ok)
@@ -43,8 +45,17 @@ RSpec.describe "Api::V1::Articles", type: :request do
     end
 
     describe "異常系のテスト" do
-      context "指定したidの記事が存在しない場合" do
+      context "指定したidの公開記事が存在しない場合" do
         let(:article_id) { 10000 }
+
+        it "記事が見つからない" do
+          expect { subject }.to raise_error ActiveRecord::RecordNotFound
+        end
+      end
+
+      context "指定したidの記事が下書きである場合" do
+        let(:article) { create(:article) }
+        let(:article_id) { article.id }
 
         it "記事が見つからない" do
           expect { subject }.to raise_error ActiveRecord::RecordNotFound
