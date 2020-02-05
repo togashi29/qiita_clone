@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       resources :articles
 
       namespace :articles do
-        resources :draft
+        resources :drafts
       end
     end
   end

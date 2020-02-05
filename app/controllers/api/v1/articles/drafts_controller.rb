@@ -1,4 +1,4 @@
-class Api::V1::Articles::DraftController < Api::V1::ApiController
+class Api::V1::Articles::DraftsController < Api::V1::ApiController
   before_action :authenticate_user!, only: [:index, :show]
 
   def index
