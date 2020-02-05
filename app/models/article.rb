@@ -5,4 +5,6 @@ class Article < ApplicationRecord
 
   validates :title, presence: true
   validates :body, presence: true
+
+  enum status: { draft: "draft", published: "published" }
 end
