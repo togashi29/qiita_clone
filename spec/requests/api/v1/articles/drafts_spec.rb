@@ -8,7 +8,7 @@ RSpec.describe "Api::V1::Articles::Drafts", type: :request do
     let(:headers) { current_user.create_new_auth_token }
 
     context "ログインユーザーが作成した下書き記事があるとき" do
-      before { create_list(:article, 3, user: current_user) }
+      before { create_list(:article, 3, :draft, user: current_user) }
 
       it "下書き記事の一覧が取得できる" do
         subject
@@ -29,7 +29,7 @@ RSpec.describe "Api::V1::Articles::Drafts", type: :request do
     let(:headers) { current_user.create_new_auth_token }
 
     context "ログインユーザーが作成した下書き記事があるとき" do
-      let(:article) { create(:article, user: current_user) }
+      let(:article) { create(:article, :draft, user: current_user) }
 
       it "指定したidの下書き記事が取得できる" do
         subject
