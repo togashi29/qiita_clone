@@ -16,6 +16,9 @@ Rails.application.routes.draw do
       namespace :articles do
         resources :drafts
       end
+      namespace :current do
+        resources :articles
+      end
       resources :articles
     end
   end
