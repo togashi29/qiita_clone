@@ -3,7 +3,7 @@ class Api::V1::ArticlesController < Api::V1::ApiController
 
   def index
     articles = Article.published
-    render json: articles
+    render json: articles, each_serializer: Api::V1::ArticlePreviewSerializer
   end
 
   def show
