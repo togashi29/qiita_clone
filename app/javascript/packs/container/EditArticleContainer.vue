@@ -14,7 +14,16 @@
       <div v-html="compiledMarkdown(this.body)" class="preview">a</div>
     </div>
     <div class="text-xs-right">
-      <v-btn @click="createArticle" color="#55c500" class="font-weight-bold white--text">Qiitaに投稿</v-btn>
+      <v-btn
+        @click="createArticle('published')"
+        color="#55c500"
+        class="font-weight-bold white--text"
+      >Qiitaに投稿</v-btn>
+      <v-btn
+        @click="createArticle('drafttt')"
+        color="#55c500"
+        class="font-weight-bold white--text"
+      >下書き投稿</v-btn>
     </div>
   </form>
 </template>
@@ -25,6 +34,7 @@ import { Vue, Component } from "vue-property-decorator";
 import Router from "../router/router";
 import marked from "marked";
 import hljs from "highlight.js";
+
 const headers = {
   headers: {
     Authorization: "Bearer",
@@ -34,10 +44,12 @@ const headers = {
     uid: localStorage.getItem("uid")
   }
 };
+
 @Component
 export default class ArticlesContainer extends Vue {
   title: string = "";
   body: string = "";
+
   async created(): Promise<void> {
     const renderer = new marked.Renderer();
     let data = "";
@@ -48,8 +60,10 @@ export default class ArticlesContainer extends Vue {
       } catch (e) {
         data = hljs.highlightAuto(code).value;
       }
+
       return `<pre><code class="hljs"> ${data} </code></pre>`;
     };
+
     marked.setOptions({
       renderer: renderer,
       tables: true,
@@ -57,19 +71,29 @@ export default class ArticlesContainer extends Vue {
       langPrefix: ""
     });
   }
+
   get compiledMarkdown() {
     return function(text: string) {
       return marked(text);
     };
   }
-  async createArticle(): Promise<void> {
+
+  async createArticle(status: string): Promise<void> {
+    enum Statuses {
+      "draft" = "draft",
+      "published" = "published"
+    }
+
     const params = {
       title: this.title,
-      body: this.body
+      body: this.body,
+      status: Statuses[status]
     };
+
     await axios
       .post("/api/v1/articles", params, headers)
       .then(_response => {
+        // TODO: 下書きの場合は下書き一覧ページに飛ばす
         Router.push("/");
       })
       .catch(e => {
@@ -110,6 +134,7 @@ export default class ArticlesContainer extends Vue {
 .body-form > .v-input__control {
   height: 100%;
 }
+
 .v-text-field .v-text-field__details {
   display: none;
 }
