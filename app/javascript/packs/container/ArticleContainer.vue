@@ -3,6 +3,13 @@
     <v-layout xs-12 class="top-info-container">
       <span class="user-name">@{{ article.user.name }}</span>
       <time-ago :refresh="60" :datetime="article.updated_at" locale="en" tooltip="top" long></time-ago>
+      <v-spacer></v-spacer>
+      <v-btn fab flat dark small color="#55c500">
+        <v-icon dark>edit</v-icon>
+      </v-btn>
+      <v-btn fab flat dark small color="#55c500">
+        <v-icon dark>list</v-icon>
+      </v-btn>
     </v-layout>
     <v-layout>
       <h1 class="article-title">{{ article.title }}</h1>
@@ -19,6 +26,7 @@ import { Vue, Component } from "vue-property-decorator";
 import TimeAgo from "vue2-timeago";
 import marked from "marked";
 import hljs from "highlight.js";
+
 @Component({
   components: {
     TimeAgo
@@ -26,9 +34,11 @@ import hljs from "highlight.js";
 })
 export default class ArticleContainer extends Vue {
   article: any = "";
+
   async mounted(): Promise<void> {
     await this.fetchArticle(this.$route.params.id);
   }
+
   async created(): Promise<void> {
     const renderer = new marked.Renderer();
     let data = "";
@@ -39,8 +49,10 @@ export default class ArticleContainer extends Vue {
       } catch (e) {
         data = hljs.highlightAuto(code).value;
       }
+
       return `<pre><code class="hljs"> ${data} </code></pre>`;
     };
+
     marked.setOptions({
       renderer: renderer,
       tables: true,
@@ -48,11 +60,13 @@ export default class ArticleContainer extends Vue {
       langPrefix: ""
     });
   }
+
   get compiledMarkdown() {
     return function(text: string) {
       return marked(text);
     };
   }
+
   async fetchArticle(id: string): Promise<void> {
     await axios
       .get(`/api/v1/articles/${id}`)
