@@ -17,4 +17,5 @@ Ruby on Railsの講座[Take off Rails](https://freelance.cat-algorithm.com/)の�
 - devise_token_auth
 - rubocop-rails, rubocop-rspec
 - rspec-rails, faker, factory_bot_rails
+
 ※Vueは教材が提供するコードのコピー
