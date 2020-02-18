@@ -20,8 +20,5 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.9.0",
     "webpack-dev-server": "^3.7.2"
-  },
-  "engines": {
-    "node": "10.15.3"
   }
 }

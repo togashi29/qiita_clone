@@ -16,7 +16,7 @@
               by {{ article.user.name }}
               <time-ago
                 :refresh="60"
-                :datetime="article.updated_at"
+                :datetime="article.created_at"
                 locale="en"
                 tooltip="right"
                 long
